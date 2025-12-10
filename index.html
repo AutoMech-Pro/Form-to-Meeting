@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>n8n Automation: Form to Meeting Infographic</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts: Roboto for Material Design feel -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Palette Name: Vibrant Neon Tech
+           Colors: 
+           - Primary Dark: #1a1a2e (Deep Navy)
+           - Accent Purple: #7b2cbf (Vibrant Purple)
+           - Accent Pink: #f72585 (Neon Pink)
+           - Accent Blue: #4cc9f0 (Electric Blue)
+           - Text Light: #f8f9fa
+           - Card Bg: #ffffff
+        */
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+
+        /* Material Design Card Styling */
+        .material-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .material-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Chart Container Rules - Strict Adherence */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px; /* Max width constraint */
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px; /* Base height */
+            max-height: 400px;
+        }
+        
+        @media (max-width: 640px) {
+            .chart-container {
+                height: 300px;
+            }
+        }
+
+        /* Custom Flowchart CSS (No SVG) */
+        .flow-node {
+            border: 2px solid #7b2cbf;
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .flow-line-vertical {
+            width: 2px;
+            background-color: #cbd5e1;
+            margin: 0 auto;
+            height: 30px;
+        }
+
+        .flow-arrow-down {
+            width: 0; 
+            height: 0; 
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 8px solid #cbd5e1;
+            margin: 0 auto;
+        }
+
+        /* Gradient Text */
+        .text-gradient {
+            background: linear-gradient(90deg, #7b2cbf, #f72585);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+    <!-- 
+        Confirmation: 
+        1. Narrative Plan: Introduction -> Workflow Overview -> Detailed Logic -> Tool Analysis -> Conclusion.
+        2. Chart Choices: Pie (Distribution), Radar (Complexity), Bar (Savings). 
+        3. NO SVG used. NO Mermaid JS used.
+        4. Palette: Vibrant Neon Tech used throughout.
+    -->
+</head>
+<body class="bg-slate-50">
+
+    <!-- Hero Section -->
+    <header class="bg-[#1a1a2e] text-white py-16 px-4">
+        <div class="max-w-6xl mx-auto text-center">
+            <h1 class="text-4xl md:text-6xl font-black mb-4">
+                <span class="text-[#4cc9f0]">Form</span> to <span class="text-[#f72585]">Meeting</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-300 font-light max-w-3xl mx-auto">
+                The Anatomy of an Automated Booking System using n8n, Google Calendar, Zoom, Gmail, & Slack.
+            </p>
+            <div class="mt-8 flex justify-center gap-4 flex-wrap">
+                <span class="bg-[#7b2cbf] px-4 py-1 rounded-full text-sm font-semibold">Automation</span>
+                <span class="bg-[#f72585] px-4 py-1 rounded-full text-sm font-semibold">Workflow</span>
+                <span class="bg-[#4cc9f0] px-4 py-1 rounded-full text-sm font-semibold text-black">Productivity</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Grid -->
+    <main class="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-12 gap-8">
+
+        <!-- Introduction -->
+        <section class="md:col-span-12 mb-8">
+            <div class="material-card p-8 border-l-8 border-[#f72585]">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Why Automate?</h2>
+                <p class="text-lg text-gray-600 leading-relaxed">
+                    Manual scheduling is a productivity killer. It involves endless email ping-pong, timezone confusion, and manual copy-pasting of Zoom links. This infographic deconstructs a powerful <strong>n8n workflow</strong> that autonomously handles booking requests. It checks your availability, books the slot, generates meeting links, and notifies your entire team—all in seconds.
+                </p>
+            </div>
+        </section>
+
+        <!-- Section 1: The Ecosystem (Pie Chart) -->
+        <section class="md:col-span-12 lg:col-span-6 flex flex-col">
+            <div class="mb-4">
+                <h3 class="text-2xl font-bold text-gray-800 border-b-2 border-[#4cc9f0] pb-2 inline-block">The Integration Ecosystem</h3>
+                <p class="mt-4 text-gray-600">
+                    This workflow orchestrates five distinct services. Understanding the role of each tool is critical before building. The chart below visualizes the distribution of responsibility across the workflow nodes.
+                </p>
+            </div>
+            <div class="material-card p-6 flex-grow flex items-center justify-center flex-col">
+                <h4 class="text-lg font-semibold text-center mb-4 text-[#7b2cbf]">Workflow Component Distribution</h4>
+                <div class="chart-container">
+                    <canvas id="ecosystemChart"></canvas>
+                </div>
+                <p class="text-sm text-center text-gray-500 mt-4 italic">
+                    Google Calendar handles the heavy lifting of availability checks and event creation.
+                </p>
+            </div>
+        </section>
+
+        <!-- Section 2: Logic Flow (HTML Diagram) -->
+        <section class="md:col-span-12 lg:col-span-6 flex flex-col">
+            <div class="mb-4">
+                <h3 class="text-2xl font-bold text-gray-800 border-b-2 border-[#4cc9f0] pb-2 inline-block">The Logic Core</h3>
+                <p class="mt-4 text-gray-600">
+                    The heart of this automation is the <strong>Availability Check</strong>. The system doesn't just book blindly; it queries your calendar first. If a slot is taken, it branches to a rejection path. If free, it triggers the booking sequence.
+                </p>
+            </div>
+            <div class="material-card p-6 bg-gradient-to-br from-white to-gray-50 flex-grow">
+                <!-- Custom CSS Flowchart -->
+                <div class="flex flex-col items-center w-full max-w-sm mx-auto">
+                    <!-- Trigger -->
+                    <div class="bg-[#1a1a2e] text-white p-3 rounded-lg shadow-lg w-full text-center font-bold">
+                        1. Form Trigger
+                    </div>
+                    <div class="flow-line-vertical"></div>
+                    <div class="flow-arrow-down"></div>
+                    
+                    <!-- Action -->
+                    <div class="bg-[#7b2cbf] text-white p-3 rounded-lg shadow-lg w-full text-center font-bold mt-1">
+                        2. Check GCal Availability
+                    </div>
+                    <div class="flow-line-vertical"></div>
+                    
+                    <!-- Decision Diamond Representation -->
+                    <div class="bg-[#f72585] text-white w-32 h-32 transform rotate-45 flex items-center justify-center shadow-lg my-4 rounded-xl border-4 border-white">
+                        <div class="transform -rotate-45 font-bold text-center">
+                            Is Slot Free?
+                        </div>
+                    </div>
+                    
+                    <!-- Branches -->
+                    <div class="flex justify-between w-full gap-4 mt-2">
+                        <!-- Left Branch (No) -->
+                        <div class="flex flex-col items-center w-1/2">
+                            <div class="h-8 w-1 bg-red-400"></div>
+                            <div class="bg-red-100 border-2 border-red-500 text-red-700 p-2 rounded-lg text-sm font-bold w-full text-center">
+                                NO (Busy)
+                                <br><span class="font-normal text-xs">Send "Reschedule" Email</span>
+                            </div>
+                        </div>
+                        <!-- Right Branch (Yes) -->
+                        <div class="flex flex-col items-center w-1/2">
+                            <div class="h-8 w-1 bg-green-400"></div>
+                            <div class="bg-green-100 border-2 border-green-500 text-green-700 p-2 rounded-lg text-sm font-bold w-full text-center">
+                                YES (Free)
+                                <br><span class="font-normal text-xs">Create Zoom & Event</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Configuration Complexity (Radar Chart) -->
+        <section class="md:col-span-12">
+            <div class="mb-4 text-center max-w-3xl mx-auto">
+                <h3 class="text-2xl font-bold text-gray-800 border-b-2 border-[#4cc9f0] pb-2 inline-block">Configuration Analysis</h3>
+                <p class="mt-4 text-gray-600">
+                    Building this workflow requires different levels of effort for each node. While the <strong>Trigger</strong> is simple, the <strong>Google Calendar</strong> node requires precise date formatting and OAuth2 setup. The chart below breaks down the complexity score based on setup steps (Credentials, Field Mapping, Logic Config).
+                </p>
+            </div>
+            <div class="material-card p-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="chart-container">
+                        <canvas id="complexityChart"></canvas>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="bg-[#7b2cbf] text-white rounded-full h-8 w-8 flex items-center justify-center font-bold mr-3 flex-shrink-0">1</div>
+                            <p class="text-sm text-gray-600"><strong>Google Calendar:</strong> Highest complexity. Requires fetching existing events (Get Many), checking logic, and creating new events. Time formatting is critical.</p>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-[#f72585] text-white rounded-full h-8 w-8 flex items-center justify-center font-bold mr-3 flex-shrink-0">2</div>
+                            <p class="text-sm text-gray-600"><strong>Zoom:</strong> Moderate complexity. Requires OAuth2 and mapping the output URL to subsequent nodes.</p>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-[#4cc9f0] text-white rounded-full h-8 w-8 flex items-center justify-center font-bold mr-3 flex-shrink-0">3</div>
+                            <p class="text-sm text-gray-600"><strong>Gmail & Slack:</strong> Lower complexity. Primarily mapping text fields from previous nodes to message bodies.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: The Build Timeline (Vertical List) -->
+        <section class="md:col-span-12 lg:col-span-5 flex flex-col">
+             <div class="mb-4">
+                <h3 class="text-2xl font-bold text-gray-800 border-b-2 border-[#4cc9f0] pb-2 inline-block">6-Step Implementation</h3>
+                <p class="mt-4 text-gray-600">
+                    Follow this linear path to build the automation. Each step builds upon the data returned by the previous one.
+                </p>
+            </div>
+            <div class="material-card p-8 bg-white flex-grow">
+                <div class="relative">
+                    <!-- Vertical Line -->
+                    <div class="absolute left-4 top-0 bottom-0 w-1 bg-gray-200"></div>
+                    
+                    <!-- Steps -->
+                    <div class="relative pl-12 mb-8">
+                        <div class="absolute left-0 top-0 bg-[#7b2cbf] h-9 w-9 rounded-full border-4 border-white shadow flex items-center justify-center text-white font-bold">1</div>
+                        <h4 class="text-lg font-bold text-gray-800">Form Trigger</h4>
+                        <p class="text-sm text-gray-500">Collect Name, Email, Date, Time, Duration.</p>
+                    </div>
+                    
+                    <div class="relative pl-12 mb-8">
+                        <div class="absolute left-0 top-0 bg-[#f72585] h-9 w-9 rounded-full border-4 border-white shadow flex items-center justify-center text-white font-bold">2</div>
+                        <h4 class="text-lg font-bold text-gray-800">Date Formatting</h4>
+                        <p class="text-sm text-gray-500">Calculate <code>endTime</code> (Start + Duration) for API compatibility.</p>
+                    </div>
+                    
+                    <div class="relative pl-12 mb-8">
+                        <div class="absolute left-0 top-0 bg-[#4cc9f0] h-9 w-9 rounded-full border-4 border-white shadow flex items-center justify-center text-white font-bold">3</div>
+                        <h4 class="text-lg font-bold text-gray-800">Availability Check</h4>
+                        <p class="text-sm text-gray-500">Query GCal: "Are there events between Start & End?"</p>
+                    </div>
+                    
+                     <div class="relative pl-12 mb-8">
+                        <div class="absolute left-0 top-0 bg-[#1a1a2e] h-9 w-9 rounded-full border-4 border-white shadow flex items-center justify-center text-white font-bold">4</div>
+                        <h4 class="text-lg font-bold text-gray-800">Logic Gate</h4>
+                        <p class="text-sm text-gray-500">IF empty → Free (Proceed). IF not empty → Busy (Reject).</p>
+                    </div>
+                    
+                     <div class="relative pl-12 mb-8">
+                        <div class="absolute left-0 top-0 bg-[#7b2cbf] h-9 w-9 rounded-full border-4 border-white shadow flex items-center justify-center text-white font-bold">5</div>
+                        <h4 class="text-lg font-bold text-gray-800">Booking Actions</h4>
+                        <p class="text-sm text-gray-500">Create Zoom Meeting + Add to Google Calendar.</p>
+                    </div>
+                    
+                    <div class="relative pl-12">
+                        <div class="absolute left-0 top-0 bg-[#f72585] h-9 w-9 rounded-full border-4 border-white shadow flex items-center justify-center text-white font-bold">6</div>
+                        <h4 class="text-lg font-bold text-gray-800">Notifications</h4>
+                        <p class="text-sm text-gray-500">Email Guest (Gmail) + Alert Team (Slack).</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Efficiency Gains (Bar Chart) -->
+        <section class="md:col-span-12 lg:col-span-7 flex flex-col">
+            <div class="mb-4">
+                <h3 class="text-2xl font-bold text-gray-800 border-b-2 border-[#4cc9f0] pb-2 inline-block">The Impact: Time Saved</h3>
+                <p class="mt-4 text-gray-600">
+                    Why build this? Compare the manual process of checking calendars, creating links, and drafting emails versus the n8n execution time.
+                </p>
+            </div>
+            <div class="material-card p-6 flex-grow flex flex-col justify-center">
+                <div class="chart-container">
+                    <canvas id="savingsChart"></canvas>
+                </div>
+                <div class="grid grid-cols-2 gap-4 mt-6">
+                    <div class="bg-gray-100 p-4 rounded-lg text-center">
+                        <span class="block text-2xl font-bold text-gray-500">~15 mins</span>
+                        <span class="text-xs uppercase tracking-wide text-gray-400">Manual Process</span>
+                    </div>
+                    <div class="bg-[#f0f9ff] border border-[#4cc9f0] p-4 rounded-lg text-center">
+                        <span class="block text-2xl font-bold text-[#4cc9f0]">< 2 secs</span>
+                        <span class="text-xs uppercase tracking-wide text-[#0ea5e9]">Automated Execution</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="md:col-span-12 mt-8 text-center border-t border-gray-200 pt-8 pb-12">
+            <h2 class="text-2xl font-bold text-[#1a1a2e] mb-2">Ready to Automate?</h2>
+            <p class="text-gray-500 mb-6">Master your time by connecting n8n to your daily tools.</p>
+            <div class="inline-block bg-[#1a1a2e] text-white px-8 py-3 rounded-lg shadow-lg">
+                Start Building This Workflow
+            </div>
+        </footer>
+
+    </main>
+
+    <script>
+        // --- DATA PROCESSING UTILITY (Label Wrapping) ---
+        function processLabels(labels) {
+            return labels.map(label => {
+                if (label.length > 16) {
+                    const words = label.split(' ');
+                    const lines = [];
+                    let currentLine = words[0];
+                    for (let i = 1; i < words.length; i++) {
+                        if ((currentLine + ' ' + words[i]).length <= 16) {
+                            currentLine += ' ' + words[i];
+                        } else {
+                            lines.push(currentLine);
+                            currentLine = words[i];
+                        }
+                    }
+                    lines.push(currentLine);
+                    return lines;
+                }
+                return label;
+            });
+        }
+
+        // --- SHARED TOOLTIP CONFIGURATION ---
+        const sharedTooltipConfig = {
+            callbacks: {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    if (Array.isArray(label)) {
+                        return label.join(' ');
+                    } else {
+                        return label;
+                    }
+                }
+            }
+        };
+
+        // --- CHART 1: ECOSYSTEM (Pie) ---
+        const ctxEcosystem = document.getElementById('ecosystemChart').getContext('2d');
+        const ecosystemLabels = ['Google Calendar (Check/Create)', 'Gmail (Notifications)', 'Slack (Team Alert)', 'Zoom (Meeting Link)', 'n8n Form (Trigger)'];
+        
+        new Chart(ctxEcosystem, {
+            type: 'doughnut',
+            data: {
+                labels: processLabels(ecosystemLabels),
+                datasets: [{
+                    data: [35, 20, 15, 15, 15], // Weighted by relative importance/usage in workflow
+                    backgroundColor: [
+                        '#7b2cbf', // Purple
+                        '#f72585', // Pink
+                        '#4cc9f0', // Blue
+                        '#4361ee', // Darker Blue
+                        '#1a1a2e'  // Navy
+                    ],
+                    borderWidth: 2,
+                    borderColor: '#ffffff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { padding: 20, usePointStyle: true }
+                    },
+                    tooltip: sharedTooltipConfig,
+                    title: {
+                        display: true,
+                        text: 'Workflow Node Composition'
+                    }
+                }
+            }
+        });
+
+        // --- CHART 2: COMPLEXITY (Radar) ---
+        const ctxComplexity = document.getElementById('complexityChart').getContext('2d');
+        const complexityLabels = ['Authentication Setup', 'Data Mapping', 'Logic Configuration', 'Error Handling', 'Testing Required'];
+        
+        new Chart(ctxComplexity, {
+            type: 'radar',
+            data: {
+                labels: processLabels(complexityLabels),
+                datasets: [{
+                    label: 'Google Calendar Node',
+                    data: [90, 85, 80, 70, 85],
+                    fill: true,
+                    backgroundColor: 'rgba(123, 44, 191, 0.2)',
+                    borderColor: '#7b2cbf',
+                    pointBackgroundColor: '#7b2cbf'
+                },
+                {
+                    label: 'Slack Node',
+                    data: [40, 50, 20, 30, 40],
+                    fill: true,
+                    backgroundColor: 'rgba(76, 201, 240, 0.2)',
+                    borderColor: '#4cc9f0',
+                    pointBackgroundColor: '#4cc9f0'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                elements: {
+                    line: { borderWidth: 3 }
+                },
+                scales: {
+                    r: {
+                        angleLines: { color: '#e5e7eb' },
+                        grid: { color: '#e5e7eb' },
+                        pointLabels: {
+                            font: { size: 12, weight: 'bold' }
+                        },
+                        suggestedMin: 0,
+                        suggestedMax: 100
+                    }
+                },
+                plugins: {
+                    legend: { position: 'top' },
+                    tooltip: sharedTooltipConfig
+                }
+            }
+        });
+
+        // --- CHART 3: TIME SAVINGS (Bar) ---
+        const ctxSavings = document.getElementById('savingsChart').getContext('2d');
+        const savingsLabels = ['Email Back-and-Forth', 'Checking Calendar', 'Creating Zoom Link', 'Sending Invites', 'Notifying Team'];
+        
+        new Chart(ctxSavings, {
+            type: 'bar',
+            data: {
+                labels: processLabels(savingsLabels),
+                datasets: [{
+                    label: 'Manual Time (Minutes)',
+                    data: [12, 5, 3, 4, 2],
+                    backgroundColor: '#e2e8f0', // Grey for "Old way"
+                    borderRadius: 4
+                },
+                {
+                    label: 'Automation Time (Seconds)',
+                    data: [0.5, 0.2, 0.2, 0.2, 0.2], // Scaled for visual comparison (conceptually)
+                    backgroundColor: '#f72585', // Pink for "New way"
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'Time Cost Scale' },
+                        grid: { borderDash: [5, 5] }
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                },
+                plugins: {
+                    tooltip: sharedTooltipConfig,
+                    legend: { position: 'top' },
+                    title: {
+                        display: true,
+                        text: 'Process Step Duration Comparison'
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
